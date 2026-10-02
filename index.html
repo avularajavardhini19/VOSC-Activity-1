@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Classic Ludo Game</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Full-screen Canvas for Confetti Fireworks -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- Winner Celebration Banner -->
+  <div class="winner-banner" id="winnerBanner">
+    <h2 id="winnerTitle">🏆 RED WINS! 🏆</h2>
+    <p id="winnerSubtitle">All 4 pawns safely reached Home!</p>
+    <button class="btn-action" id="newMatchBtn">Play Again</button>
+  </div>
+
+  <!-- Setup Modal Dialog -->
+  <div class="modal-overlay" id="setupModal">
+    <div class="modal-card">
+      <h2>Classic Ludo</h2>
+      <p>Configure players before match start (select at least 2 active):</p>
+      
+      <div class="config-grid">
+        <div class="player-opt red">
+          <div class="opt-title"><span class="color-dot" style="background:var(--red-main)"></span> Red (Top-Left)</div>
+          <select id="sel-red">
+            <option value="human" selected>Human</option>
+            <option value="bot">Computer (AI)</option>
+            <option value="none">Inactive</option>
+          </select>
+        </div>
+
+        <div class="player-opt green">
+          <div class="opt-title"><span class="color-dot" style="background:var(--green-main)"></span> Green (Top-Right)</div>
+          <select id="sel-green">
+            <option value="human">Human</option>
+            <option value="bot" selected>Computer (AI)</option>
+            <option value="none">Inactive</option>
+          </select>
+        </div>
+
+        <div class="player-opt blue">
+          <div class="opt-title"><span class="color-dot" style="background:var(--blue-main)"></span> Blue (Bottom-Left)</div>
+          <select id="sel-blue">
+            <option value="none" selected>Inactive</option>
+            <option value="human">Human</option>
+            <option value="bot">Computer (AI)</option>
+          </select>
+        </div>
+
+        <div class="player-opt yellow">
+          <div class="opt-title"><span class="color-dot" style="background:var(--yellow-main)"></span> Yellow (Bottom-Right)</div>
+          <select id="sel-yellow">
+            <option value="none" selected>Inactive</option>
+            <option value="human">Human</option>
+            <option value="bot">Computer (AI)</option>
+          </select>
+        </div>
+      </div>
+
+      <button id="startBtn" class="btn-action">Start Match</button>
+    </div>
+  </div>
+
+  <!-- Header Section -->
+  <header class="app-header">
+    <h1>Ludo Classic</h1>
+    <div class="turn-bar">
+      <span>Current Turn:</span>
+      <span class="badge-tag badge-red" id="turnBadge">Red</span>
+    </div>
+  </header>
+
+  <main class="game-workspace">
+    <div class="board-container">
+      <div class="ludo-board" id="board">
+        <!-- 4 Center Triangles -->
+        <div class="center-triangles-wrapper">
+          <div class="tri-red"></div>
+          <div class="tri-green"></div>
+          <div class="tri-yellow"></div>
+          <div class="tri-blue"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls & Status Panel -->
+    <aside class="controls-panel">
+      <!-- 3D Rolling Dice Area -->
+      <div class="dice-area">
+        <div class="dice-cube" id="diceCube">
+          <!-- Face 1: Exact center dot -->
+          <div class="dice-face face-1">
+            <div class="pip p-mid"></div>
+          </div>
+          <!-- Face 2: Diagonal dots -->
+          <div class="dice-face face-2">
+            <div class="pip p-tl"></div>
+            <div class="pip p-br"></div>
+          </div>
+          <!-- Face 3: 3 diagonal dots -->
+          <div class="dice-face face-3">
+            <div class="pip p-tl"></div>
+            <div class="pip p-mid"></div>
+            <div class="pip p-br"></div>
+          </div>
+          <!-- Face 4: 4 corner dots -->
+          <div class="dice-face face-4">
+            <div class="pip p-tl"></div>
+            <div class="pip p-tr"></div>
+            <div class="pip p-bl"></div>
+            <div class="pip p-br"></div>
+          </div>
+          <!-- Face 5: 4 corner dots + center dot -->
+          <div class="dice-face face-5">
+            <div class="pip p-tl"></div>
+            <div class="pip p-tr"></div>
+            <div class="pip p-mid"></div>
+            <div class="pip p-bl"></div>
+            <div class="pip p-br"></div>
+          </div>
+          <!-- Face 6: 2 vertical columns of 3 dots -->
+          <div class="dice-face face-6">
+            <div class="pip p-tl"></div>
+            <div class="pip p-tr"></div>
+            <div class="pip p-ml"></div>
+            <div class="pip p-mr"></div>
+            <div class="pip p-bl"></div>
+            <div class="pip p-br"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dice-result-badge" id="diceNumText">Roll Die</div>
+
+      <button id="rollDiceBtn" class="btn-action" disabled>Roll Dice</button>
+
+      <div class="status-panel" id="statusMsg">
+        Set up the players to begin the match.
+      </div>
+
+      <div class="scores-summary">
+        <h3>Pawns in Home</h3>
+        <div id="scoreListing"></div>
+      </div>
+
+      <button id="resetMatchBtn" class="btn-secondary">New Match Settings</button>
+    </aside>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
